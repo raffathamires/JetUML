@@ -591,7 +591,7 @@ public class EditorFrame extends JFrame
    	public void addWelcomeTab()
    	{
    		aWelcomeTab = new WelcomeTab(aNewMenu, aRecentFilesMenu);
-     	aTabbedPane.add("Welcome", aWelcomeTab);
+     	aTabbedPane.add("Bem Vindo", aWelcomeTab);
      	aTabs.add(aWelcomeTab);
    	}
    
@@ -625,7 +625,7 @@ public class EditorFrame extends JFrame
         if(aTabs.size() == 0)
         {
         	aWelcomeTab = new WelcomeTab(aNewMenu, aRecentFilesMenu);
-        	aTabbedPane.add("Welcome", aWelcomeTab);
+        	aTabbedPane.add("Bem Vindo", aWelcomeTab);
         	aTabs.add(aWelcomeTab);
         }
     }
