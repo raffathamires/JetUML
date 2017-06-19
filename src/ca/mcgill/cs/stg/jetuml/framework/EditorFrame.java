@@ -175,6 +175,10 @@ public class EditorFrame extends JFrame
 		createEditMenu(factory);
 		createViewMenu(factory);
      	createHelpMenu(factory);
+     	
+     	// maximiza a janela
+     	setExtendedState(JFrame.MAXIMIZED_BOTH);
+     	
 	}
 	
 	private void createFileMenu(MenuFactory pFactory)
@@ -558,23 +562,23 @@ public class EditorFrame extends JFrame
    				Graph graphType = frame.getGraph();
    				if(graphType instanceof ClassDiagramGraph)
    				{
-   					diagramName = "Class Diagram";
+   					diagramName = "Diagrama de Classe";
    				}
    				else if(graphType instanceof ObjectDiagramGraph)
    				{
-   					diagramName = "Object Diagram";
+   					diagramName = "Diagrama Objeto";
    				}
    				else if(graphType instanceof UseCaseDiagramGraph)
    				{
-   					diagramName = "Use Case Diagram";
+   					diagramName = "Diagrama de Caso de Uso";
    				}
    				else if(graphType instanceof StateDiagramGraph)
    				{
-   					diagramName = "State Diagram";
+   					diagramName = "Diagrama de Estado";
    				}
    				else
    				{
-   					diagramName =  "Sequence Diagram";
+   					diagramName =  "Diagrama de Sequência";
    				}
    				return diagramName;
    			}

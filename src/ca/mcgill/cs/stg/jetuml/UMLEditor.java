@@ -78,7 +78,7 @@ public final class UMLEditor
 				frame.setVisible(true);
 				frame.readArgs(arguments);
 				frame.addWelcomeTab();
-				frame.setIcon();
+				frame.setIcon();			
 			}
 		});
    }
