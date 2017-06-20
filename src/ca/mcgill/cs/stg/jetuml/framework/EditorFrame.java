@@ -577,14 +577,10 @@ public class EditorFrame extends JFrame
    				{
    					diagramName = "Diagrama de Estados";
    				}
-   				else if(graphType instanceof SequenceDiagramGraph)
+   				else
    				{
    					diagramName =  "Diagrama de Sequência";
    				}
-				else
-				{
-					diagramName =  "Diagrama de Máquina de Estados";
-				}
    				return diagramName;
    			}
    			else
@@ -696,9 +692,7 @@ public class EditorFrame extends JFrame
    			new ExtensionFilter(aAppResources.getString("usecase.name"), 
    						aAppResources.getString("usecase.extension") + aAppResources.getString("files.extension")),
    			new ExtensionFilter(aAppResources.getString("sequence.name"), 
-   						aAppResources.getString("sequence.extension") + aAppResources.getString("files.extension")),		   						aAppResources.getString("sequence.extension") + aAppResources.getString("files.extension"))
-   			new ExtensionFilter(aAppResources.getString("statemachine.name"), 		
-					aAppResources.getString("statemachine.extension") + aAppResources.getString("files.extension"))
+   						aAppResources.getString("sequence.extension") + aAppResources.getString("files.extension"))
    		};
    		for(ExtensionFilter filter: filters)
 		{
