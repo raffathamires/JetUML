@@ -21,6 +21,7 @@
 
 package ca.mcgill.cs.stg.jetuml.graph;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
@@ -39,6 +40,7 @@ public class StateNode extends RectangularNode
 	private static final int DEFAULT_HEIGHT = 60;
 	
 	private MultiLineString aName;
+	private Color aColor;
 
 	/**
      * Construct a state node with a default size.
@@ -46,12 +48,14 @@ public class StateNode extends RectangularNode
 	public StateNode()
 	{
 		aName = new MultiLineString();
+		aColor = Color.WHITE;
 		setBounds(new Rectangle2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
 	@Override
 	public void draw(Graphics2D pGraphics2D)
 	{
+		pGraphics2D.setBackground(aColor);
 		super.draw(pGraphics2D);
 		pGraphics2D.draw(getShape());
 		aName.draw(pGraphics2D, getBounds());
@@ -91,12 +95,31 @@ public class StateNode extends RectangularNode
 	{
 		return aName;
 	}
+	
+	/**
+     * Sets the color property value.
+     * @param pColor the new state color
+	 */
+	public void setColor(Color pColor)
+	{
+		aColor = pColor;
+	}
+
+	/**
+     * Gets the color property value.
+     * @return the state color
+	 */
+	public Color getColor()
+	{
+		return aColor;
+	}
 
 	@Override
 	public StateNode clone()
 	{
 		StateNode cloned = (StateNode)super.clone();
 		cloned.aName = aName.clone();
+		cloned.aColor = aColor;
 		return cloned;
 	}
 }
