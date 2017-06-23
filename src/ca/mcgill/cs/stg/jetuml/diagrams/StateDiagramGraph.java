@@ -30,6 +30,7 @@ import ca.mcgill.cs.stg.jetuml.graph.Graph;
 import ca.mcgill.cs.stg.jetuml.graph.Node;
 import ca.mcgill.cs.stg.jetuml.graph.NoteEdge;
 import ca.mcgill.cs.stg.jetuml.graph.NoteNode;
+import ca.mcgill.cs.stg.jetuml.graph.IfNode;
 import ca.mcgill.cs.stg.jetuml.graph.StateNode;
 import ca.mcgill.cs.stg.jetuml.graph.StateTransitionEdge;
 
@@ -38,7 +39,7 @@ import ca.mcgill.cs.stg.jetuml.graph.StateTransitionEdge;
  */
 public class StateDiagramGraph extends Graph
 {
-	private static final Node[] NODE_PROTOTYPES = new Node[]{new StateNode(), new CircularStateNode(), new CircularStateNode(), new NoteNode()};
+	private static final Node[] NODE_PROTOTYPES = new Node[]{new StateNode(), new CircularStateNode(), new CircularStateNode(), new NoteNode(), new IfNode()};
 	private static final Edge[] EDGE_PROTOTYPES = new Edge[]{new StateTransitionEdge(), new NoteEdge()};
 	
 	static

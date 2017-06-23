@@ -4,8 +4,8 @@ package ca.mcgill.cs.stg.jetuml.graph;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
-import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 
 import ca.mcgill.cs.stg.jetuml.framework.Grid;
 import ca.mcgill.cs.stg.jetuml.framework.MultiLineString;
@@ -17,96 +17,92 @@ public class IfNode extends RectangularNode
 {
 	private static final int DEFAULT_WIDTH = 40;
 	private static final int DEFAULT_HEIGHT = 40;
-	private static final Color DEFAULT_COLOR = new Color(0.9f, 0.9f, 0.6f); // pale yellow
-	private static final int FOLD_X = 8;
-	private static final int FOLD_Y = 8;
+	private static final Color DEFAULT_COLOR = new Color(0.9f, 0.9f, 0.6f);
 	
-	private MultiLineString aText;
+	private MultiLineString aName;
+	private Color aColor;
 
-   /**
-    *  Construct a note node with a default size and color.
-    */
+	/**
+     * Construct a state node with a default size.
+	 */
 	public IfNode()
 	{
+		aName = new MultiLineString();
+		aColor = Color.WHITE;
 		setBounds(new Rectangle2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
-		aText = new MultiLineString();
-		aText.setJustification(MultiLineString.LEFT);
-	}
-
-	@Override
-	public void layout(Graph pGraph, Graphics2D pGraphics2D, Grid pGrid)
-	{
-		Rectangle2D b = aText.getBounds(pGraphics2D); // getMultiLineBounds(name, g2);
-		Rectangle2D bounds = getBounds();
-		b = new Rectangle2D.Double(bounds.getX(), bounds.getY(), Math.max(b.getWidth(), DEFAULT_WIDTH), Math.max(b.getHeight(), DEFAULT_HEIGHT));
-		pGrid.snap(b);
-		setBounds(b);
-	}
-
-	/**
-     * Gets the value of the text property.
-     * @return the text inside the note
-	 */
-	public MultiLineString getText()
-	{
-		return aText;
-	}
-
-	/**
-     * Sets the value of the text property.
-     * @param pText the text inside the note
-	 */
-	public void setText(MultiLineString pText)
-	{
-		aText = pText;
 	}
 
 	@Override
 	public void draw(Graphics2D pGraphics2D)
 	{
+		pGraphics2D.setBackground(aColor);
+		//pGraphics2D.rotate(Math.toRadians(45));
 		super.draw(pGraphics2D);
 		Color oldColor = pGraphics2D.getColor();
 		pGraphics2D.setColor(DEFAULT_COLOR);
-
+		
 		Shape path = getShape();
 		pGraphics2D.fill(path);
 		pGraphics2D.setColor(oldColor);
 		pGraphics2D.draw(path);
-
-		Rectangle2D bounds = getBounds();
-		GeneralPath fold = new GeneralPath();
-		fold.moveTo((float)(bounds.getMaxX()), (float)bounds.getY());
-		fold.lineTo((float)bounds.getMaxX(), (float)bounds.getY());
-		fold.lineTo((float)bounds.getMaxX(), (float)(bounds.getY()));
-		fold.closePath();
-		oldColor = pGraphics2D.getColor();
-		pGraphics2D.setColor(pGraphics2D.getBackground());
-		pGraphics2D.fill(fold);
-		pGraphics2D.setColor(oldColor);
-		pGraphics2D.rotate(20); 
-		pGraphics2D.draw(fold);      
-      
-		aText.draw(pGraphics2D, getBounds());
+		//pGraphics2D.rotate(Math.toRadians(45));
+		pGraphics2D.draw(getShape());
+		//https://stackoverflow.com/questions/28982008/how-to-draw-a-diamond-shape-in-java
+		aName.draw(pGraphics2D, getBounds());
 	}
    
-	@Override
-	public Shape getShape()
+	@Override	
+	public void layout(Graph pGraph, Graphics2D pGraphics2D, Grid pGrid)
 	{
-		Rectangle2D bounds = getBounds();
-		GeneralPath path = new GeneralPath();
-		path.moveTo((float)bounds.getX(), (float)bounds.getY());
-		path.lineTo((float)(bounds.getMaxX()), (float)bounds.getY());
-		path.lineTo((float)bounds.getMaxX(), (float)(bounds.getY()));
-		path.lineTo((float)bounds.getMaxX(), (float)bounds.getMaxY());
-		path.lineTo((float)bounds.getX(), (float)bounds.getMaxY());
-		path.closePath();
-		return path;
+		Rectangle2D b = aName.getBounds(pGraphics2D);
+		b = new Rectangle2D.Double(getBounds().getX(), getBounds().getY(), 
+				Math.max(b.getWidth(), DEFAULT_WIDTH), Math.max(b.getHeight(), DEFAULT_HEIGHT));
+		pGrid.snap(b);
+		setBounds(b);
+	}
+
+	/**
+     * Sets the name property value.
+     * @param pName the new state name
+	 */
+	public void setName(MultiLineString pName)
+	{
+		aName = pName;
+	}
+
+	/**
+     * Gets the name property value.
+     * @return the state name
+	 */
+	public MultiLineString getName()
+	{
+		return aName;
+	}
+	
+	/**
+     * Sets the color property value.
+     * @param pColor the new state color
+	 */
+	public void setColor(Color pColor)
+	{
+		aColor = pColor;
+	}
+
+	/**
+     * Gets the color property value.
+     * @return the state color
+	 */
+	public Color getColor()
+	{
+		return aColor;
 	}
 
 	@Override
 	public IfNode clone()
-	{		IfNode cloned = (IfNode)super.clone();
-		cloned.aText = aText.clone();
+	{
+		IfNode cloned = (IfNode)super.clone();
+		cloned.aName = aName.clone();
+		cloned.aColor = aColor;
 		return cloned;
 	}
 }
