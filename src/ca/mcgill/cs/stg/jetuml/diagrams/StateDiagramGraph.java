@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 import ca.mcgill.cs.stg.jetuml.graph.CircularStateNode;
 import ca.mcgill.cs.stg.jetuml.graph.Edge;
+import ca.mcgill.cs.stg.jetuml.graph.ForkJoinNode;
 import ca.mcgill.cs.stg.jetuml.graph.Graph;
 import ca.mcgill.cs.stg.jetuml.graph.Node;
 import ca.mcgill.cs.stg.jetuml.graph.NoteEdge;
@@ -39,7 +40,7 @@ import ca.mcgill.cs.stg.jetuml.graph.StateTransitionEdge;
  */
 public class StateDiagramGraph extends Graph
 {
-	private static final Node[] NODE_PROTOTYPES = new Node[]{new StateNode(), new CircularStateNode(), new CircularStateNode(), new NoteNode(), new IfNode()};
+	private static final Node[] NODE_PROTOTYPES = new Node[]{new StateNode(), new CircularStateNode(), new CircularStateNode(), new NoteNode(), new IfNode(), new ForkJoinNode()};
 	private static final Edge[] EDGE_PROTOTYPES = new Edge[]{new StateTransitionEdge(), new NoteEdge()};
 	
 	static
