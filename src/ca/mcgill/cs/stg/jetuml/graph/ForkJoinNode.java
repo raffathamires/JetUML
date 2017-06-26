@@ -19,7 +19,6 @@ public class ForkJoinNode extends RectangularNode
 	private static final Color DEFAULT_COLOR = new Color(0.0f, 0.0f, 0.0f);
 	
 	private MultiLineString aName;
-	private Color aColor;
 
 	/**
      * Construct a state node with a default size.
@@ -27,15 +26,12 @@ public class ForkJoinNode extends RectangularNode
 	public ForkJoinNode()
 	{
 		aName = new MultiLineString();
-		aColor = Color.WHITE;
 		setBounds(new Rectangle2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
 	@Override
 	public void draw(Graphics2D pGraphics2D)
 	{
-		pGraphics2D.setBackground(aColor);
-		//pGraphics2D.rotate(Math.toRadians(45));
 		super.draw(pGraphics2D);
 		Color oldColor = pGraphics2D.getColor();
 		pGraphics2D.setColor(DEFAULT_COLOR);
@@ -44,9 +40,7 @@ public class ForkJoinNode extends RectangularNode
 		pGraphics2D.fill(path);
 		pGraphics2D.setColor(oldColor);
 		pGraphics2D.draw(path);
-		//pGraphics2D.rotate(Math.toRadians(45));
 		pGraphics2D.draw(getShape());
-		//https://stackoverflow.com/questions/28982008/how-to-draw-a-diamond-shape-in-java
 		aName.draw(pGraphics2D, getBounds());
 	}
    
@@ -61,15 +55,6 @@ public class ForkJoinNode extends RectangularNode
 	}
 
 	/**
-     * Sets the name property value.
-     * @param pName the new state name
-	 */
-	public void setName(MultiLineString pName)
-	{
-		aName = pName;
-	}
-
-	/**
      * Gets the name property value.
      * @return the state name
 	 */
@@ -78,30 +63,11 @@ public class ForkJoinNode extends RectangularNode
 		return aName;
 	}
 	
-	/**
-     * Sets the color property value.
-     * @param pColor the new state color
-	 */
-	public void setColor(Color pColor)
-	{
-		aColor = pColor;
-	}
-
-	/**
-     * Gets the color property value.
-     * @return the state color
-	 */
-	public Color getColor()
-	{
-		return aColor;
-	}
-
-	@Override
+		@Override
 	public ForkJoinNode clone()
 	{
 		ForkJoinNode cloned = (ForkJoinNode)super.clone();
 		cloned.aName = aName.clone();
-		cloned.aColor = aColor;
 		return cloned;
 	}
 }

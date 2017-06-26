@@ -45,7 +45,7 @@ public class IfNode extends RectangularNode
 		pGraphics2D.fill(path);
 		pGraphics2D.setColor(oldColor);
 		pGraphics2D.draw(path);
-		//pGraphics2D.rotate(Math.toRadians(45));
+		pGraphics2D.rotate(Math.toRadians(45));
 		pGraphics2D.draw(getShape());
 		//https://stackoverflow.com/questions/28982008/how-to-draw-a-diamond-shape-in-java
 		aName.draw(pGraphics2D, getBounds());
