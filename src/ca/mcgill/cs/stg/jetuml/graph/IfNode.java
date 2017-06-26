@@ -4,8 +4,8 @@ package ca.mcgill.cs.stg.jetuml.graph;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
+import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.RoundRectangle2D;
 
 import ca.mcgill.cs.stg.jetuml.framework.Grid;
 import ca.mcgill.cs.stg.jetuml.framework.MultiLineString;
@@ -32,11 +32,10 @@ public class IfNode extends RectangularNode
 		setBounds(new Rectangle2D.Double(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT));
 	}
 
+	//Need to rotate the rectangle for transformate in a Diamond Graphic
 	@Override
 	public void draw(Graphics2D pGraphics2D)
 	{
-		pGraphics2D.setBackground(aColor);
-		//pGraphics2D.rotate(Math.toRadians(45));
 		super.draw(pGraphics2D);
 		Color oldColor = pGraphics2D.getColor();
 		pGraphics2D.setColor(DEFAULT_COLOR);
@@ -45,10 +44,21 @@ public class IfNode extends RectangularNode
 		pGraphics2D.fill(path);
 		pGraphics2D.setColor(oldColor);
 		pGraphics2D.draw(path);
-		pGraphics2D.rotate(Math.toRadians(45));
 		pGraphics2D.draw(getShape());
-		//https://stackoverflow.com/questions/28982008/how-to-draw-a-diamond-shape-in-java
 		aName.draw(pGraphics2D, getBounds());
+	}
+	
+	@Override
+	public Shape getShape()
+	{
+		Rectangle2D bounds = getBounds();
+		GeneralPath fold = new GeneralPath();		
+		fold.moveTo(bounds.getMinX(), bounds.getMaxY() - (bounds.getHeight() / 2));
+		fold.lineTo(bounds.getMaxX() - (bounds.getWidth() / 2), bounds.getMinY());
+		fold.lineTo(bounds.getMaxX(), bounds.getMaxY() - (bounds.getHeight() / 2));
+		fold.lineTo(bounds.getMaxX() - (bounds.getWidth() / 2), bounds.getMaxY());
+		fold.closePath();
+		return fold;
 	}
    
 	@Override	
