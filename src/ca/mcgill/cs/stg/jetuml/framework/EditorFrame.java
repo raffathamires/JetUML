@@ -592,23 +592,28 @@ public class EditorFrame extends JFrame
    				Graph graphType = frame.getGraph();
    				if(graphType instanceof ClassDiagramGraph)
    				{
-   					diagramName = "Diagrama de Classe";
+   					// diagramName = "Diagrama de Classe";
+   					diagramName = aAppResources.getString("class_diagram.text");
    				}
    				else if(graphType instanceof ObjectDiagramGraph)
    				{
-   					diagramName = "Diagrama Objeto";
+   					// diagramName = "Diagrama Objeto";
+   					diagramName = aAppResources.getString("object_diagram.text");
    				}
    				else if(graphType instanceof UseCaseDiagramGraph)
    				{
-   					diagramName = "Diagrama de Caso de Uso";
+   					// diagramName = "Diagrama de Caso de Uso";
+   					diagramName = aAppResources.getString("usecase_diagram.text");
    				}
    				else if(graphType instanceof StateDiagramGraph)
    				{
-   					diagramName = "Diagrama de Estados";
+   					// diagramName = "Diagrama de Estados";
+   					diagramName = aAppResources.getString("state_diagram.text");
    				}
    				else
    				{
-   					diagramName =  "Diagrama de Sequência";
+   					// diagramName =  "Diagrama de Sequência";
+   					diagramName = aAppResources.getString("sequence_diagram.text");
    				}
    				return diagramName;
    			}
@@ -624,6 +629,7 @@ public class EditorFrame extends JFrame
    	 */
    	public void addWelcomeTab()
    	{
+   		
    		aWelcomeTab = new WelcomeTab(aNewMenu, aRecentFilesMenu);
      	aTabbedPane.add("Bem Vindo", aWelcomeTab);
      	aTabs.add(aWelcomeTab);
