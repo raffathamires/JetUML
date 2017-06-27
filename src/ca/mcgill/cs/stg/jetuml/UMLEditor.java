@@ -53,6 +53,7 @@ public final class UMLEditor
 	 */
 	public static void main(String[] pArgs)
 	{
+		
 		checkVersion();
 		try
 		{
@@ -69,7 +70,9 @@ public final class UMLEditor
 			@Override
 			public void run()
 			{
+				
 				setLookAndFeel();
+				
 				EditorFrame frame = new EditorFrame(UMLEditor.class);
 				frame.addGraphType("class_diagram", ClassDiagramGraph.class);
 				frame.addGraphType("sequence_diagram", SequenceDiagramGraph.class);
@@ -78,11 +81,13 @@ public final class UMLEditor
 			    frame.addGraphType("usecase_diagram", UseCaseDiagramGraph.class);
 				frame.setVisible(true);
 				frame.readArgs(arguments);
-				frame.addWelcomeTab();
+				// frame.addWelcomeTab();
+				frame.addLanguageTab();
 				frame.setIcon();			
 			}
 		});
    }
+	
 	
 	private static void setLookAndFeel()
 	{

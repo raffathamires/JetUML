@@ -114,6 +114,7 @@ public class EditorFrame extends JFrame
 	private JMenu aRecentFilesMenu;
 	
 	private WelcomeTab aWelcomeTab;
+	private LanguageTab aLanguageTab;
 	
 	// Menus or menu items that must be disabled if there is no current diagram.
 	private final List<JMenuItem> aDiagramRelevantMenus = new ArrayList<>();
@@ -598,6 +599,16 @@ public class EditorFrame extends JFrame
    		aWelcomeTab = new WelcomeTab(aNewMenu, aRecentFilesMenu);
      	aTabbedPane.add("Bem Vindo", aWelcomeTab);
      	aTabs.add(aWelcomeTab);
+   	}
+   	
+   	/**
+   	 * Exibe a aba mostrando as opções de idiomas ao usuário.
+   	 */
+   	public void addLanguageTab()
+   	{
+   		aLanguageTab = new LanguageTab();
+     	aTabbedPane.add("Selecione o Idioma", aLanguageTab);
+     	aTabs.add(aLanguageTab);
    	}
    
    	
