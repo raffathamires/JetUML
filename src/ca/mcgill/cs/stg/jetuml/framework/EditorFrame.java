@@ -627,11 +627,9 @@ public class EditorFrame extends JFrame
    	/**
    	 * This adds a WelcomeTab to the tabs. This is only done if all other tabs have been previously closed.
    	 */
-   	public void addWelcomeTab()
-   	{
-   		
+   	public void addWelcomeTab(){
    		aWelcomeTab = new WelcomeTab(aNewMenu, aRecentFilesMenu);
-     	aTabbedPane.add("Bem Vindo", aWelcomeTab);
+     	aTabbedPane.add(aAppResources.getString("welcome.text"), aWelcomeTab);
      	aTabs.add(aWelcomeTab);
    	}
    	
@@ -666,7 +664,7 @@ public class EditorFrame extends JFrame
         if(aTabs.size() == 0)
         {
         	aWelcomeTab = new WelcomeTab(aNewMenu, aRecentFilesMenu);
-        	aTabbedPane.add("Bem Vindo", aWelcomeTab);
+        	aTabbedPane.add(aAppResources.getString("welcome.text"), aWelcomeTab);
         	aTabs.add(aWelcomeTab);
         }
     }
