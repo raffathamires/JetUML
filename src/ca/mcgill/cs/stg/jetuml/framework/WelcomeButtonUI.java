@@ -63,6 +63,7 @@ public class WelcomeButtonUI extends BasicButtonUI
 	        pButton.setRolloverEnabled(true);
 	        pButton.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));
 	        pButton.setBorder(new EmptyBorder(4, 0, 0, 4));
+	        pButton.setText(pButton.getText().toUpperCase());
 	    }
 
 	    @Override
@@ -77,7 +78,7 @@ public class WelcomeButtonUI extends BasicButtonUI
 	        }
 	        else
 	        {
-	        	pButton.setForeground(Color.BLACK);
+	        	pButton.setForeground(Color.BLUE);
 	        }
 	        super.paintText(pGraphic, pButton, pTextRect, pText);
 	    }

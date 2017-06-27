@@ -30,6 +30,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.swing.BoxLayout;
@@ -71,9 +72,9 @@ public class WelcomeTab extends JInternalFrame
 	 * @param pNewFileMenu The NewFileMenu to link to the WelcomeTab.
 	 * @param pRecentFileMenu The RecentFileMenu to link to the WelcomeTab.
 	 */
-	public WelcomeTab(JMenu pNewFileMenu, JMenu pRecentFileMenu)
+	public WelcomeTab(JMenu pNewFileMenu, JMenu pRecentFileMenu, Locale locale)
 	{
-		aWelcomeResources = ResourceBundle.getBundle("ca.mcgill.cs.stg.jetuml.framework.EditorStrings");
+		aWelcomeResources = ResourceBundle.getBundle("ca.mcgill.cs.stg.jetuml.framework.EditorStrings", locale);
 		aLeftPanelIcon = new ImageIcon(getClass().getClassLoader().getResource(aWelcomeResources.getString("welcome.create.icon")));
 		aRightPanelIcon = new ImageIcon(getClass().getClassLoader().getResource(aWelcomeResources.getString("welcome.open.icon"))); 
 	    setOpaque(false);
@@ -123,7 +124,7 @@ public class WelcomeTab extends JInternalFrame
 			{
 				final JMenuItem item = aNewFileMenu.getItem(i);
 				String label = item.getText();
-				JButton newDiagramShortcut = new JButton(label.toLowerCase());
+				JButton newDiagramShortcut = new JButton(label.toUpperCase());
 				newDiagramShortcut.setUI(new WelcomeButtonUI());
 				newDiagramShortcut.setAlignmentX(Component.RIGHT_ALIGNMENT);
 				newDiagramShortcut.addActionListener(new ActionListener()
@@ -152,7 +153,7 @@ public class WelcomeTab extends JInternalFrame
 			{
 				final JMenuItem item = aRecentFileMenu.getItem(i);
 				String label = item.getText().substring(2);
-				JButton fileShortcut = new JButton(label.toLowerCase());
+				JButton fileShortcut = new JButton(label.toUpperCase());
 				fileShortcut.setUI(new WelcomeButtonUI());
 				fileShortcut.setAlignmentX(Component.LEFT_ALIGNMENT);
 				fileShortcut.addActionListener(new ActionListener()
@@ -176,9 +177,9 @@ public class WelcomeTab extends JInternalFrame
 			JLabel icon = new JLabel();
 			icon.setIcon(this.aLeftPanelIcon);
 
-			JLabel title = new JLabel(aNewFileMenu.getText().toLowerCase());
-			title.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));
-			title.setForeground(Color.DARK_GRAY);
+			JLabel title = new JLabel(aNewFileMenu.getText().toUpperCase());
+			title.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
+			title.setForeground(Color.BLUE);
 			title.setBorder(new EmptyBorder(0, ALTERNATIVE_BORDER_MARGIN, 0, 0));
 
 			JPanel panel = new JPanel();
@@ -204,9 +205,9 @@ public class WelcomeTab extends JInternalFrame
 			icon.setIcon(this.aRightPanelIcon);
 			icon.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-			JLabel title = new JLabel(aRecentFileMenu.getText().toLowerCase());
-			title.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));
-			title.setForeground(Color.DARK_GRAY);
+			JLabel title = new JLabel(aRecentFileMenu.getText().toUpperCase());
+			title.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
+			title.setForeground(Color.BLUE);
 			title.setBorder(new EmptyBorder(0, 0, 0, ALTERNATIVE_BORDER_MARGIN));
 
 			JPanel panel = new JPanel();
