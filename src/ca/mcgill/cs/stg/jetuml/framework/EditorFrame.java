@@ -21,6 +21,7 @@
 
 package ca.mcgill.cs.stg.jetuml.framework;
 
+import java.util.Locale;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -101,6 +102,8 @@ public class EditorFrame extends JFrame
 	private static final int HELP_MENU_TEXT_WIDTH = 10; //Number of pixels to give to the width of the  text area of the Help Menu.
 	private static final int HELP_MENU_TEXT_HEIGHT = 40; //Number of pixels to give to the height of the text area of the Help Menu.
 	
+	private Locale locale;
+	
 	private MenuFactory aAppFactory;
 	private ResourceBundle aAppResources;
 	private ResourceBundle aVersionResources;
@@ -114,7 +117,6 @@ public class EditorFrame extends JFrame
 	private JMenu aRecentFilesMenu;
 	
 	private WelcomeTab aWelcomeTab;
-	private LanguageTab aLanguageTab;
 	
 	// Menus or menu items that must be disabled if there is no current diagram.
 	private final List<JMenuItem> aDiagramRelevantMenus = new ArrayList<>();
@@ -127,60 +129,86 @@ public class EditorFrame extends JFrame
      * and appClassName + "Version" (the latter for version-specific
      * resources)
      */
-	public EditorFrame(Class<?> pAppClass)
-	{  
+	public EditorFrame(Class<?> pAppClass){
+		init(pAppClass);
+	}
+	
+	/**
+	 * Constructs a blank frame with a desktop pane
+     * but no graph windows.
+     * @param pAppClass the fully qualified app class name.
+     * @param default locale
+     * It is expected that the resources are appClassName + "Strings"
+     * and appClassName + "Version" (the latter for version-specific
+     * resources)
+     */
+	public EditorFrame(Class<?> pAppClass, Locale locale){
+		this.locale = locale;		
+		init(pAppClass);
+	}
+	
+	private void init(Class<?> pAppClass){
+		
 		String appClassName = pAppClass.getName();
-		aAppResources = ResourceBundle.getBundle(appClassName + "Strings");
+		aAppResources = ResourceBundle.getBundle(appClassName + "Strings", locale);
 		aAppFactory = new MenuFactory(aAppResources);
-		aVersionResources = ResourceBundle.getBundle(appClassName + "Version");
-		aEditorResources = ResourceBundle.getBundle("ca.mcgill.cs.stg.jetuml.framework.EditorStrings");      
+		aVersionResources = ResourceBundle.getBundle(appClassName + "Version", locale);
+		aEditorResources = ResourceBundle.getBundle("ca.mcgill.cs.stg.jetuml.framework.EditorStrings", locale);      
 		MenuFactory factory = new MenuFactory(aEditorResources);
 		
 		aRecentFiles.deserialize(Preferences.userNodeForPackage(UMLEditor.class).get("recent", "").trim());
-      
+	  
 		setTitle(aAppResources.getString("app.name"));
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-  
-		int screenWidth = (int)screenSize.getWidth();
-		int screenHeight = (int)screenSize.getHeight();
-
-		setBounds(screenWidth / (MARGIN_SCREEN*2), screenHeight / (MARGIN_SCREEN*2), (screenWidth * (MARGIN_SCREEN-1)) / MARGIN_SCREEN, 
-				(screenHeight * (MARGIN_SCREEN-1))/MARGIN_SCREEN);
-
-		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-		addWindowListener(new WindowAdapter()
-		{
-            public void windowClosing(WindowEvent pEvent)
-            {
-               exit();
-            }
-		});
-
-		aTabbedPane = new JTabbedPane();
-		aTabbedPane.addChangeListener(new ChangeListener()
-		{
-			@Override
-			public void stateChanged(ChangeEvent pEven)
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	  
+			int screenWidth = (int)screenSize.getWidth();
+			int screenHeight = (int)screenSize.getHeight();
+	
+			setBounds(screenWidth / (MARGIN_SCREEN*2), screenHeight / (MARGIN_SCREEN*2), (screenWidth * (MARGIN_SCREEN-1)) / MARGIN_SCREEN, 
+					(screenHeight * (MARGIN_SCREEN-1))/MARGIN_SCREEN);
+	
+			setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+			addWindowListener(new WindowAdapter()
 			{
-				boolean noGraphFrame = noCurrentGraphFrame();
-				for( JMenuItem menuItem : aDiagramRelevantMenus )
+	            public void windowClosing(WindowEvent pEvent)
+	            {
+	               exit();
+	            }
+			});
+	
+			aTabbedPane = new JTabbedPane();
+			aTabbedPane.addChangeListener(new ChangeListener()
+			{
+				@Override
+				public void stateChanged(ChangeEvent pEven)
 				{
-					menuItem.setEnabled(!noGraphFrame);
+					boolean noGraphFrame = noCurrentGraphFrame();
+					for( JMenuItem menuItem : aDiagramRelevantMenus )
+					{
+						menuItem.setEnabled(!noGraphFrame);
+					}
 				}
-			}
-		});
-		setContentPane(aTabbedPane);
-
-     	setJMenuBar(new JMenuBar());
-     	
-		createFileMenu(factory);
-		createEditMenu(factory);
-		createViewMenu(factory);
-     	createHelpMenu(factory);
-     	
-     	// maximiza a janela
-     	setExtendedState(JFrame.MAXIMIZED_BOTH);
-     	
+			});
+			setContentPane(aTabbedPane);
+	
+	     	setJMenuBar(new JMenuBar());
+	     	
+			createFileMenu(factory);
+			createEditMenu(factory);
+			createViewMenu(factory);
+	     	createHelpMenu(factory);
+	     	
+	     	// maximiza a janela
+	 	setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+	}
+	
+	public void setLocale(Locale locale){
+		this.locale = locale;
+	}
+	
+	public Locale getLocale(){
+		return this.locale;
 	}
 	
 	private void createFileMenu(MenuFactory pFactory)
@@ -601,15 +629,6 @@ public class EditorFrame extends JFrame
      	aTabs.add(aWelcomeTab);
    	}
    	
-   	/**
-   	 * Exibe a aba mostrando as opções de idiomas ao usuário.
-   	 */
-   	public void addLanguageTab()
-   	{
-   		aLanguageTab = new LanguageTab();
-     	aTabbedPane.add("Selecione o Idioma", aLanguageTab);
-     	aTabs.add(aLanguageTab);
-   	}
    
    	
    	/**

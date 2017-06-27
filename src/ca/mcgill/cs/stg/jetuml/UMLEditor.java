@@ -36,6 +36,7 @@ import ca.mcgill.cs.stg.jetuml.diagrams.SequenceDiagramGraph;
 import ca.mcgill.cs.stg.jetuml.diagrams.StateDiagramGraph;
 import ca.mcgill.cs.stg.jetuml.diagrams.UseCaseDiagramGraph;
 import ca.mcgill.cs.stg.jetuml.framework.EditorFrame;
+import ca.mcgill.cs.stg.jetuml.framework.LanguageFrame;
 
 /**
  * A program for editing UML diagrams.
@@ -73,17 +74,9 @@ public final class UMLEditor
 				
 				setLookAndFeel();
 				
-				EditorFrame frame = new EditorFrame(UMLEditor.class);
-				frame.addGraphType("class_diagram", ClassDiagramGraph.class);
-				frame.addGraphType("sequence_diagram", SequenceDiagramGraph.class);
-				frame.addGraphType("state_diagram", StateDiagramGraph.class);
-			    frame.addGraphType("object_diagram", ObjectDiagramGraph.class);
-			    frame.addGraphType("usecase_diagram", UseCaseDiagramGraph.class);
-				frame.setVisible(true);
-				frame.readArgs(arguments);
-				// frame.addWelcomeTab();
-				frame.addLanguageTab();
-				frame.setIcon();			
+				LanguageFrame idiomas = new LanguageFrame();
+				idiomas.setVisible(true);
+							
 			}
 		});
    }
