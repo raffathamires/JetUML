@@ -90,15 +90,6 @@ public class IfNode extends RectangularNode
 	}
 	
 	/**
-     * Sets the color property value.
-     * @param pColor the new state color
-	 */
-	public void setColor(Color pColor)
-	{
-		aColor = pColor;
-	}
-
-	/**
      * Gets the color property value.
      * @return the state color
 	 */
